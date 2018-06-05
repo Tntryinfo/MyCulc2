@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Expression
 
 class ViewController: UIViewController {
 
@@ -110,12 +111,11 @@ class ViewController: UIViewController {
         }
         textbox.text = value + "/"
     }
-    //以下未実装
-    // .を入れるときは数字のときしかだめまた
     @IBAction func tapCommaButton(_ sender: Any) {
         guard let value = textbox.text else {
             return
         }
+        textbox.text = value + "."
     }
     // Clearボタンの処理
     @IBAction func tapClearButton(_ sender: Any) {
@@ -135,22 +135,60 @@ class ViewController: UIViewController {
         }
         textbox.text = value + ")"
     }
-    // Taxボタンの処理
-    @IBAction func tapTaxButton(_ sender: Any) {
+    // =ボタンの処理
+    @IBAction func tapEqualButton(_ sender: Any) {
+        guard let formulaText = textbox.text else {
+            return
+        }
+        let formula:String = formatFormula(formulaText)
+        textbox.text = evalFormula(formula)
     }
     
     
+    // Taxボタンの処理
+    @IBAction func tapTaxButton(_ sender: Any) {
+        guard let formulaText = textbox.text else {
+            return
+        }
+        let  formula:String = formatFormula(formulaText)
+        if formula == "式を正しく入力してください" {
+            // 式が間違っているため何もしない
+        }
+        else {
+            let doubleformula: Double = NSString(string: formula).doubleValue
+            print(doubleformula)
+            let formulaAddTax: String = NSString(format: "%.2f",doubleformula * 1.08) as String
+            print(formulaAddTax)
+            textbox.text = evalFormula(formulaAddTax)
+        }
+    }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    private func formatFormula (_ formula: String) -> String {
+        // 入力された整数には「.0」を追加して少数として評価する
+        let formattedFormula: String = formula.replacingOccurrences(
+            of: "(?<=^|[÷×\\+\\-\\(])([0-9]+)(?=[÷×\\+\\-\\)]|$)",
+            with: "$1.0",
+            options: NSString.CompareOptions.regularExpression,
+            range: nil
+            )
+        return formattedFormula
+    }
+    private func evalFormula (_ formula: String) -> String {
+        do {
+            // Expressionで文字列を計算式を評価して答えを求める
+            let expression = Expression (formula)
+            let answer = try expression.evaluate()
+            return formatAnswer(String(answer))
+        }
+        catch {
+            // 計算式が不当
+            return "式を正しく入力してください"
+        }
+    }
+    private func formatAnswer (_ answer: String) -> String {
+        // 答えの少数点以下が「.0」だった場合は、「.0」を削除する
+        let formattedAnswer: String = answer.replacingOccurrences(of: "\\.0$", with: "", options: NSString.CompareOptions.regularExpression,range:nil)
+        return formattedAnswer
+    }
 }
 
