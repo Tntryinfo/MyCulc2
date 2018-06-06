@@ -16,6 +16,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        // アプリ初回起動時の処理
+        let userDefault = UserDefaults.standard
+        let dict = ["firstLaunch": true]
+        userDefault.register(defaults: dict)
+        // 初回起動時のみtrueなので初回起動時以外実行されない
+        if userDefault.bool(forKey: "firstLaunch") {
+            userDefault.set(false, forKey: "firstLaunch")
+            var taxList = [taxData]()
+            // 5%の設定
+            let taxdata1 = taxData()
+            taxdata1.taxTableName = "5%"
+            taxdata1.taxPercent = 5
+            taxdata1.taxActive = false
+            taxdata1.taxCustom = false
+            taxList.append (taxdata1)
+            // 8%の設定
+            let taxdata2 = taxData()
+            taxdata2.taxTableName = "8%"
+            taxdata2.taxPercent = 8
+            taxdata2.taxActive = true
+            taxdata2.taxCustom = false
+            taxList.append (taxdata2)
+            // 10%の設定
+            let taxdata3 = taxData()
+            taxdata3.taxTableName = "10%"
+            taxdata3.taxPercent = 10
+            taxdata3.taxActive = false
+            taxdata3.taxCustom = false
+            taxList.append (taxdata3)
+            // 初期Taxの保存処理
+            // Data型にシリアライズする
+            let data = NSKeyedArchiver.archivedData(withRootObject: taxList)
+            userDefault.set (data, forKey: "taxList")
+            userDefault.synchronize()
+        }
         return true
     }
 

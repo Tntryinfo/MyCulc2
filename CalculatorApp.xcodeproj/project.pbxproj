@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		E1AEF7B268945B331DDE0E6C /* Pods_CalculatorApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3559B1269496736E14F8E217 /* Pods_CalculatorApp.framework */; };
+		F128F2F520C7834F00A4834C /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F128F2F420C7834F00A4834C /* SettingViewController.swift */; };
+		F128F2FB20C7D7D800A4834C /* taxData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F128F2FA20C7D7D800A4834C /* taxData.swift */; };
 		F18438D620C5111F00EFB7BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18438D520C5111F00EFB7BE /* AppDelegate.swift */; };
 		F18438D820C5111F00EFB7BE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18438D720C5111F00EFB7BE /* ViewController.swift */; };
 		F18438DB20C5111F00EFB7BE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F18438D920C5111F00EFB7BE /* Main.storyboard */; };
@@ -19,6 +21,8 @@
 		3559B1269496736E14F8E217 /* Pods_CalculatorApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CalculatorApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		685572B455022F61DADB97CF /* Pods-CalculatorApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CalculatorApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CalculatorApp/Pods-CalculatorApp.debug.xcconfig"; sourceTree = "<group>"; };
 		DEA0CD0219FE03D0C790F7DF /* Pods-CalculatorApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CalculatorApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-CalculatorApp/Pods-CalculatorApp.release.xcconfig"; sourceTree = "<group>"; };
+		F128F2F420C7834F00A4834C /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		F128F2FA20C7D7D800A4834C /* taxData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = taxData.swift; sourceTree = "<group>"; };
 		F18438D220C5111F00EFB7BE /* CalculatorApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalculatorApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F18438D520C5111F00EFB7BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F18438D720C5111F00EFB7BE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -81,6 +85,8 @@
 				F18438D520C5111F00EFB7BE /* AppDelegate.swift */,
 				F18438D720C5111F00EFB7BE /* ViewController.swift */,
 				F18438D920C5111F00EFB7BE /* Main.storyboard */,
+				F128F2F420C7834F00A4834C /* SettingViewController.swift */,
+				F128F2FA20C7D7D800A4834C /* taxData.swift */,
 				F18438DC20C5112000EFB7BE /* Assets.xcassets */,
 				F18438DE20C5112000EFB7BE /* LaunchScreen.storyboard */,
 				F18438E120C5112000EFB7BE /* Info.plist */,
@@ -202,6 +208,8 @@
 			files = (
 				F18438D820C5111F00EFB7BE /* ViewController.swift in Sources */,
 				F18438D620C5111F00EFB7BE /* AppDelegate.swift in Sources */,
+				F128F2F520C7834F00A4834C /* SettingViewController.swift in Sources */,
+				F128F2FB20C7D7D800A4834C /* taxData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
