@@ -10,7 +10,7 @@ import Foundation
 class taxData: NSObject, NSCoding  {
     
     var taxTableName: String?
-    var taxPercent: Int?
+    var taxPercent: Double?
     // 電卓のTAXボタンを押して使われる数字の設定
     var taxActive: Bool?
     // 自分で設定したもの以外はfalse
@@ -21,7 +21,7 @@ class taxData: NSObject, NSCoding  {
     }
     required init?(coder aDecoder: NSCoder){
         taxTableName = (aDecoder.decodeObject(forKey: "taxTableName") as! String)
-        taxPercent = (aDecoder.decodeObject(forKey: "taxPercent") as! Int)
+        taxPercent = (aDecoder.decodeObject(forKey: "taxPercent") as! Double)
         taxActive = (aDecoder.decodeObject(forKey: "taxActive") as! Bool)
         taxCustom = (aDecoder.decodeObject(forKey: "taxCustom") as! Bool)
     }

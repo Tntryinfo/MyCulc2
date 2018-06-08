@@ -13,11 +13,13 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var textbox: UILabel!
     
+    // AppDelegateのデータを利用できるようにする
+    var appDelegate:AppDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // 起動時の初期化
         textbox.text = ""
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -151,13 +153,14 @@ class ViewController: UIViewController {
             return
         }
         let  formula:String = formatFormula(formulaText)
+        let activeTax: Double = appDelegate.activeTax!
         if formula == "式を正しく入力してください" {
             // 式が間違っているため何もしない
         }
         else {
             let doubleformula: Double = NSString(string: formula).doubleValue
             print(doubleformula)
-            let formulaAddTax: String = NSString(format: "%.2f",doubleformula * 1.08) as String
+            let formulaAddTax: String = NSString(format: "%.2f",doubleformula * activeTax) as String
             print(formulaAddTax)
             textbox.text = evalFormula(formulaAddTax)
         }

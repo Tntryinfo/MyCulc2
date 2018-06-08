@@ -288,6 +288,7 @@
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="94Y-5f-ZAH" id="nxh-1b-Qmq"/>
+                                    <outlet property="delegate" destination="94Y-5f-ZAH" id="FKO-kR-pNl"/>
                                 </connections>
                             </tableView>
                         </subviews>

@@ -8,9 +8,13 @@
 
 import UIKit
 
-class SettingViewController: UIViewController, UITableViewDataSource {
+class SettingViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var taxList = [taxData]()
+    
+    // AppDelegateのデータを利用できるようにする
+    var appDelegate:AppDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -32,13 +36,52 @@ class SettingViewController: UIViewController, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return taxList.count
     }
+    // cell表示の処理
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SettingCell" , for: indexPath)
         cell.textLabel?.text = taxList[indexPath.row].taxTableName
+        if taxList[indexPath.row].taxActive! {
+            cell.accessoryType = UITableViewCellAccessoryType.checkmark
+        }
+        else {
+            cell.accessoryType = UITableViewCellAccessoryType.none
+        }
         return cell
     }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "消費税"
+    }
+    
+    // cellがtapされたときの処理
+    func tableView(_ tableView: UITableView,didSelectRowAt indexPath: IndexPath) {
+        
+        // 現在のactiveTaxのcellをfalseにする
+        for i in taxList {
+            if i.taxActive! {
+                i.taxActive = false
+                print(i.taxTableName!)
+            }
+        }
+        // タップされたcellのactiveTaxをtrueする
+        taxList[indexPath.row].taxActive = true
+        appDelegate.activeTax = 1.0 + taxList[indexPath.row].taxPercent! / 100.0
+        
+        // シリアライズ処理
+        Serialize()
+        
+        // セルの状態を変更
+        // 画面のリロード
+        tableView.reloadData()
+    }
+    
+    
+    
+    func Serialize () {
+        // Data型にシリアライズする
+        let userDefault = UserDefaults.standard
+        let data = NSKeyedArchiver.archivedData(withRootObject: taxList)
+        userDefault.set (data, forKey: "taxList")
+        userDefault.synchronize()
     }
 
     /*

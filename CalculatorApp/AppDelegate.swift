@@ -12,6 +12,10 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    // swiftファイル間共有するための変数
+    // あまり良い使い方ではないのかもしれない
+    var activeTax:Double?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -38,6 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             taxdata2.taxActive = true
             taxdata2.taxCustom = false
             taxList.append (taxdata2)
+            activeTax = 1.08
             // 10%の設定
             let taxdata3 = taxData()
             taxdata3.taxTableName = "10%"
