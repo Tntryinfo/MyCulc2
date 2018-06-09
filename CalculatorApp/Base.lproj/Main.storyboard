@@ -308,6 +308,11 @@
                                 <segue destination="G4x-Gb-mwh" kind="presentation" id="mwL-kg-9Lk"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="0K1-6g-AKt">
+                            <connections>
+                                <action selector="tapAddButton:" destination="94Y-5f-ZAH" id="ppy-EW-pJO"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>

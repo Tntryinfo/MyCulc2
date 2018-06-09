@@ -83,7 +83,13 @@ class SettingViewController: UIViewController, UITableViewDataSource, UITableVie
         userDefault.set (data, forKey: "taxList")
         userDefault.synchronize()
     }
-
+    // Addボタンを押されたときの処理
+    
+    @IBAction func tapAddButton(_ sender: Any) {
+        // アラートダイアログを作成
+        let alertController = UIAlertController(title: "Tax追加", message: "新しいTax設定を追加してください", preferredStyle: UIAlertControllerStyle.alert)
+    }
+    
     /*
     // MARK: - Navigation
 
