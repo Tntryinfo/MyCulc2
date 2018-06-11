@@ -159,9 +159,9 @@ class ViewController: UIViewController {
         }
         else {
             let doubleformula: Double = NSString(string: formula).doubleValue
-            print(doubleformula)
+//            print(doubleformula)
             let formulaAddTax: String = NSString(format: "%.2f",doubleformula * activeTax) as String
-            print(formulaAddTax)
+//            print(formulaAddTax)
             textbox.text = evalFormula(formulaAddTax)
         }
     }

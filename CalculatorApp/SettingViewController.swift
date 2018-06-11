@@ -53,7 +53,7 @@ class SettingViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     // cellがtapされたときの処理
-    func tableView(_ tableView: UITableView,didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         // 現在のactiveTaxのcellをfalseにする
         for i in taxList {
@@ -74,7 +74,24 @@ class SettingViewController: UIViewController, UITableViewDataSource, UITableVie
         tableView.reloadData()
     }
     
-    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.delete {
+            if taxList[indexPath.row].taxCustom == true {
+                taxList.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
+                Serialize()
+            }
+            else {
+                let alertController = UIAlertController(title: "お知らせ", message: "その設定は削除できません！", preferredStyle: UIAlertControllerStyle.alert)
+                let okaction = UIAlertAction(title: "OK",style: UIAlertActionStyle.default) {(action: UIAlertAction) in
+                }
+                // OKボタンが押されたときの処理
+                alertController.addAction(okaction)
+                // アラートダイアログを表示
+                present(alertController, animated: true, completion: nil)
+            }
+        }
+    }
     
     func Serialize () {
         // Data型にシリアライズする
@@ -83,11 +100,46 @@ class SettingViewController: UIViewController, UITableViewDataSource, UITableVie
         userDefault.set (data, forKey: "taxList")
         userDefault.synchronize()
     }
-    // Addボタンを押されたときの処理
     
+    // Addボタンを押されたときの処理
     @IBAction func tapAddButton(_ sender: Any) {
         // アラートダイアログを作成
-        let alertController = UIAlertController(title: "Tax追加", message: "新しいTax設定を追加してください", preferredStyle: UIAlertControllerStyle.alert)
+        let alertController = UIAlertController(title: "Tax追加", message: "新しいTax設定を入力してください", preferredStyle: UIAlertControllerStyle.alert)
+        
+        // テキストフィールドの追加
+        alertController.addTextField(configurationHandler: {(textField: UITextField! ) -> Void in textField.placeholder = "テキスト1設定名"})
+        alertController.addTextField(configurationHandler: {(textField: UITextField! ) -> Void in textField.placeholder = "テキスト2数値を(%で入力してください)"})
+        
+        // OKボタンの設定
+        let okaction = UIAlertAction(title: "OK",style: UIAlertActionStyle.default) {(action: UIAlertAction) in
+            
+            let addtax = taxData()
+            // OKボタンがタップされたときの処理
+            if let addTaxTableName = alertController.textFields![0].text {
+                print(addTaxTableName)
+                addtax.taxTableName = addTaxTableName
+            }
+            if let addTaxPercent = alertController.textFields![1].text {
+                // 入力された文字列をDouble型に変換
+                let doubleformula: Double = NSString(string: addTaxPercent).doubleValue
+                addtax.taxPercent = doubleformula
+            }
+            addtax.taxActive = false
+            addtax.taxCustom = true
+            self.taxList.append(addtax)
+            self.Serialize()
+            
+        }
+        // OKボタンが押されたときの処理
+        alertController.addAction(okaction)
+        // CANCELボタンがタップされたときの処理
+        let cancelButton = UIAlertAction(title: "CANCEL",style: UIAlertActionStyle.cancel, handler: nil)
+        // CANCELボタンを追加
+        alertController.addAction(cancelButton)
+        // アラートダイアログを表示
+        present(alertController, animated: true, completion: nil)
+        // 画面リロード
+        
     }
     
     /*
